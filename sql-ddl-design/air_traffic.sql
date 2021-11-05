@@ -7,20 +7,60 @@ CREATE DATABASE air_traffic;
 
 \c air_traffic
 
+-- CREATE TABLE tickets
+-- (
+--   id SERIAL PRIMARY KEY,
+--   seat TEXT NOT NULL,
+--   first_name TEXT NOT NULL,
+--   last_name TEXT NOT NULL,
+--   departure TIMESTAMP NOT NULL,
+--   arrival TIMESTAMP NOT NULL,
+--   airline TEXT NOT NULL,
+--   from_city TEXT NOT NULL,
+--   from_country TEXT NOT NULL,
+--   to_city TEXT NOT NULL,
+--   to_country TEXT NOT NULL
+-- );
+
 CREATE TABLE tickets
 (
   id SERIAL PRIMARY KEY,
-  first_name TEXT NOT NULL,
-  last_name TEXT NOT NULL,
   seat TEXT NOT NULL,
-  departure TIMESTAMP NOT NULL,
-  arrival TIMESTAMP NOT NULL,
-  airline TEXT NOT NULL,
-  from_city TEXT NOT NULL,
-  from_country TEXT NOT NULL,
-  to_city TEXT NOT NULL,
-  to_country TEXT NOT NULL
+  passenger_id REFERENCES passengers,
+  flight_id REFERENCES flights
 );
+
+CREATE TABLE passengers
+(
+  id SERIAL PRIMARY KEY,
+  first_name TEXT NOT NULL,
+  last_name TEXT NOT NULL
+)
+
+CREATE TABLE flights
+(
+  id SERIAL PRIMARY KEY,
+  arrival TIMESTAMP NOT NULL,
+  departure TIMESTAMP NOT NULL,
+  airline REFERENCES airlines,
+  from_city REFERENCES cities
+  to_city REFERENCES cities,
+  to_country REFERENCES cities,
+  from_country REFERENCES cities
+)
+
+CREATE TABLE cities
+(
+  id SERIAL PRIMARY KEY,
+  name TEXT NOT NULL,
+  country NOT NULL
+)
+
+CREATE TABLE airlines
+(
+  id SERIAL PRIMARY KEY,
+  name TEXT NOT NULL,
+)
 
 INSERT INTO tickets
   (first_name, last_name, seat, departure, arrival, airline, from_city, from_country, to_city, to_country)

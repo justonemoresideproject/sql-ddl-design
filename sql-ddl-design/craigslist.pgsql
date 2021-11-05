@@ -10,8 +10,6 @@ CREATE TABLE regions
     region_name TEXT UNIQUE NOT NULL
 )
 
-
-
 CREATE TABLE users
 (
     id SERIAL PRIMARY KEY,

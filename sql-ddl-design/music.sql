@@ -12,11 +12,32 @@ CREATE TABLE songs
   id SERIAL PRIMARY KEY,
   title TEXT NOT NULL,
   duration_in_seconds INTEGER NOT NULL,
-  release_date DATE NOT NULL,
-  artists TEXT[] NOT NULL,
-  album TEXT NOT NULL,
-  producers TEXT[] NOT NULL
+  album_id REFERENCES album
 );
+
+CREATE TABLE artists
+(
+  id SERIAL PRIMARY KEY,
+  name TEXT NOT NULL,
+  albums REFERENCES albums[],
+)
+
+CRAETE TABLE producers
+(
+  id SERIAL PRIMARY KEY,
+  name TEXT NOT NULL,
+  albums REFERENCES albums[],
+)
+
+CREATE TABLE album
+(
+  id SERIAL PRIMARY KEY,
+  name TEXT NOT NULL,
+  songs REFERENCES songs[],
+  release_date DATE NOT NULL,
+  artist REFERENCES artists,
+  producer REFERENCES producers
+)
 
 INSERT INTO songs
   (title, duration_in_seconds, release_date, artists, album, producers)

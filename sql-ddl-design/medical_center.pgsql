@@ -4,6 +4,13 @@ CREATE DATABASE medical_center;
 
 \c medical_center
 
+CREATE TABLE medical_center
+(
+    id SERIAL PRIMARY KEY,
+    name TEXT NOT NULL,
+    doctors REFERENCES doctors[]
+)
+
 CREATE TABLE doctors
 (
     id SERIAL PRIMARY KEY,
@@ -14,8 +21,7 @@ CREATE TABLE doctors
 CREATE TABLE patients
 (
     id SERIAL PRIMARY KEY,
-    first_name TEXT NOT NULL,
-    last_name TEXT NOT NULL,
+    name TEXT NOT NULL,
     doctors REFERENCES doctors[],
     diseases REFERENCES diseases[]
 )
@@ -26,22 +32,29 @@ CREATE TABLE diseases
     name TEXT NOT NULL
 )
 
-INSERT INTO diseases 
-(disease_name)
-VALUES
-('chicken pox'),
-('whooping cough'),
-('flu');
+CREATE TABLE visit
+(
+    id SERIAL PRIMARY KEY,
+    doctor_id REFERENCES doctors,
+    patient_id REFERENCES patients,
+    diagnosis REFERENCES diseases
+)
 
-INSERT INTO patients
-(first_name, last_name, doctors, diseases)
-VALUES
-('John', 'Smith', '{1}', '{1, 2}'),
-('Jane', 'Smith', '{1}', '{2}');
+-- INSERT INTO diseases 
+-- (disease_name)
+-- VALUES
+-- ('chicken pox'),
+-- ('whooping cough'),
+-- ('flu');
 
-INSERT INTO doctors
-(last_name, patients_id)
-VALUES
-('Thomas', '{1}'),
-('Thomas', '{1}');
+-- INSERT INTO patients
+-- (first_name, last_name, doctors, diseases)
+-- VALUES
+-- ('John', 'Smith', '{1}', '{1, 2}'),
+-- ('Jane', 'Smith', '{1}', '{2}');
 
+-- INSERT INTO doctors
+-- (last_name, patients_id)
+-- VALUES
+-- ('Thomas', '{1}'),
+-- ('Thomas', '{1}');

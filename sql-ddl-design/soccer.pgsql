@@ -14,6 +14,13 @@ CREATE DATABASE soccer_league;
 
 \c soccer_league;
 
+CREATE TABLE soccer_league
+(
+    id SERIAL PRIMARY KEY,
+    teams REFERENCES teams[],
+    season REFERENCES seasons
+)
+
 CREATE TABLE teams
 (
     id SERIAL PRIMARY KEY,
@@ -27,7 +34,7 @@ CREATE TABLE players
     team REFERENCES teams
 )
 
-CREATE TABLE games
+CREATE TABLE matches
 (
     id SERIAL PRIMARY KEY,
     team_one REFERENCES teams,
@@ -37,12 +44,11 @@ CREATE TABLE games
 CREATE TABLE goals
 (
     id SERIAL PRIMARY KEY,
-    player REFERENCES players,
-    team REFERENCES teams,
-    vs_team REFERENCES teams   
+    scoring_player REFERENCES players,
+    scoring_team REFERENCES teams  
 )
 
-CREATE TABLE referies
+CREATE TABLE referees
 (
     id SERIAL PRIMARY KEY,
     name TEXT NOT NULL,
