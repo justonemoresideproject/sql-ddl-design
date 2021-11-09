@@ -25,7 +25,7 @@ CREATE DATABASE air_traffic;
 CREATE TABLE tickets
 (
   id SERIAL PRIMARY KEY,
-  seat TEXT NOT NULL,
+  seat REFERENCES seats,
   passenger_id REFERENCES passengers,
   flight_id REFERENCES flights
 );
@@ -47,6 +47,12 @@ CREATE TABLE flights
   to_city REFERENCES cities,
   to_country REFERENCES cities,
   from_country REFERENCES cities
+)
+
+CREATE TABLE seats
+(
+  id SERIAL PRIMARY KEY,
+  flight REFERENCES flights,
 )
 
 CREATE TABLE cities
